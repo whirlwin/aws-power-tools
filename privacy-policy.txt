@@ -1,0 +1,3 @@
+AWS Power Tools, hereafter the extension does not store or share any user data.
+
+The extension purely manipulates the DOM, and nothing is exported outside the realm of the current site.
