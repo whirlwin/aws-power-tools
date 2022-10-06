@@ -1,3 +1,50 @@
-AWS Power Tools, hereafter the extension does not store or share any user data.
+Privacy Policy for AWS Power Tools
 
-The extension purely manipulates the DOM, and nothing is exported outside the realm of the current site.
+Privacy Policy
+Last updated: October 06, 2022
+
+This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Extension and tells You about Your privacy rights and how the law protects You.
+
+By using the Extension, You agree to storing data locally in the browser and use of information in accordance with this Privacy Policy.
+
+Interpretation and Definitions
+Interpretation
+The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+
+Definitions
+For the purposes of this Privacy Policy:
+
+Device means any device that can access use the Extension such as a computer, a cellphone or a digital tablet.
+
+Extension refers to the Chrome Extension.
+
+Local Data refers to data collected and stored locally on the Device, but not exported or shared (for example, the list of AWS accounts used is stored in localStorage).
+
+You means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
+
+Storing Local Data
+While using the extension, it will locally store data in localStorage, but not share or export the data
+
+Use of Your Local Data
+The Local Data is used for the following purposes:
+
+- Improve the user experience of day to day AWS Console usage
+
+The Extension will not by any means share any data with anyone whatsoever
+
+Retention of Your Local Data
+The Extension will retain Local Data only for as long as is necessary for the purposes set out in this Privacy Policy.
+
+The extension will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.
+
+You may at any time choose to delete the contents stored in Your browser's localStorage.
+
+Changes to this Privacy Policy
+We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.
+
+You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+
+Contact Us
+If you have any questions about this Privacy Policy, You can contact us:
+
+By email: whirlwin90+support@gmail.com
