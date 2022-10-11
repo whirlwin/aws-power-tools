@@ -1,4 +1,4 @@
-(function bootstrapAwsSwitchRoleXxl() {
+(async function bootstrapAwsPowerTools() {
 
     // Extract correct tokens and class names from initial role list
     const validCsrfToken = document.querySelector('li[data-testid="awsc-role-history-list-item"] input[type="hidden"][name="csrf"]').value
@@ -7,9 +7,13 @@
     const labelClassName = document.querySelector('ul li form label[data-testid="awsc-role-history-list-item-color"] ').className
     const inputSubmitClassName = document.querySelector('ul li form input[data-testid="awsc-role-history-list-item-formatted-name"]').className
 
-    // Fetch stored roles from localStorage
-    const storedRoles = (JSON.parse(localStorage.getItem("awscFullRoleList")) || [])
-        .map(role => {
+    let storedRoles = (await chrome.storage.sync.get('awscFullRoleList'));
+    if (Object.keys(storedRoles).length === 0) {
+        storedRoles = [];
+    } else {
+        storedRoles = JSON.parse(storedRoles.awscFullRoleList);
+    }
+    storedRoles = storedRoles.map(role => {
             let li = document.createElement("li");
             li.innerHTML = role;
             return li.firstChild;
@@ -45,5 +49,5 @@
         return combinedRole.outerHTML;
     });
 
-    localStorage.setItem("awscFullRoleList", JSON.stringify(storableCombinedRoles));
+    chrome.storage.sync.set({"awscFullRoleList": JSON.stringify(storableCombinedRoles)});
 }());
