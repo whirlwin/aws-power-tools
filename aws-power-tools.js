@@ -1,5 +1,6 @@
 (async function bootstrapAwsPowerTools() {
 
+    /*** BEGIN: ROLE SWITCHER ***/
     const consoleRoleList = document.querySelector("#awsc-username-menu-recent-roles");
     // Return if we're on a page without the console role list
     if (consoleRoleList === null) {
@@ -26,15 +27,15 @@
 
     const initialRolesFromConsole = Array.from(consoleRoleList.children);
     const combinedDuplicateRoles = initialRolesFromConsole.concat(storedRoles);
-    const combinedRoles = [...new Map(combinedDuplicateRoles.map((r) => [r.title, r])).values()];
+    let combinedRoles = [...new Map(combinedDuplicateRoles.map((r) => [r.title, r])).values()];
 
 
-    function updateRoleUi() {
+    function updateRoleUi(roles) {
 
         consoleRoleList.innerHTML = '';
 
         // Populate UI with combined roles
-        combinedRoles.forEach(combinedRole => {
+        roles.forEach(combinedRole => {
             combinedRole.className = liClassName;
             combinedRole.querySelector("form").className = formClassName;
             combinedRole.querySelector('label[data-testid="awsc-role-history-list-item-color"]').className = labelClassName;
@@ -47,7 +48,7 @@
             consoleRoleList.append(combinedRole);
         });
     }
-    updateRoleUi();
+    updateRoleUi(combinedRoles);
 
     const storableCombinedRoles = combinedRoles.map(combinedRole => {
         return combinedRole.outerHTML;
@@ -56,8 +57,9 @@
     chrome.storage.local.set({"awscFullRoleList": JSON.stringify(storableCombinedRoles)});
 
     (function addRoleListSorting() {
+
         let sortOrder = true;
-        function sortByTitle(elem) {
+        function sortByTitle() {
             combinedRoles.sort((a, b) => {
                 if (sortOrder) {
                     return (a.title > b.title) ? 1 : -1;
@@ -65,7 +67,7 @@
                     return (a.title < b.title) ? 1 : -1;
                 }
             })
-            updateRoleUi();
+            updateRoleUi(combinedRoles);
             sortOrder = !sortOrder;
         }
 
@@ -76,10 +78,44 @@
         const roleHistoryDivider = document.createElement("span")
         roleHistoryDivider.innerText = " | ";
         roleHistoryElement.appendChild(roleHistoryDivider);
-
         const sortingButton =  document.createElement("button");
         sortingButton.innerText = "Sort A-Z"
         sortingButton.addEventListener("click", sortByTitle);
         roleHistoryElement.appendChild(sortingButton);
     })();
+
+    (function addRoleListSearch() {
+        const roleHistoryElement = document.querySelector('#awsc-recent-roles-label');
+        if (roleHistoryElement === null) {
+            return;
+        }
+        const roleSearchDivider = document.createElement("span")
+        roleSearchDivider.innerText = " | ";
+        roleHistoryElement.appendChild(roleSearchDivider);
+        const searchField = document.createElement("input");
+        searchField.placeholder = "Search..."
+        searchField.addEventListener("keyup", () => {
+            const combinedRolesSearch = combinedRoles.filter(r => {
+                return r.title.includes(searchField.value);
+            });
+            updateRoleUi(combinedRolesSearch);
+        })
+        roleHistoryElement.appendChild(searchField);
+
+        const navUsernameMenu = document.querySelector("#nav-usernameMenu")
+        navUsernameMenu.addEventListener("click", () => {
+            window.setTimeout(() => searchField.focus(), 0);
+        });
+    })();
+
+    /*** END: ROLE SWITCHER ***/
+
+    /*** BEGIN: ROUTE53 ENHANCEMENTS ***/
+    (function addRoute53EnhancementsIfApplicable() {
+        if (window.location.pathname.startsWith("/route53")) {
+            Array.from(document.querySelectorAll('awsui-table[data-testid="daas-list-records"] th'))
+                .filter()
+        }
+    })();
+    /*** END: ROUTE53 ENHANCEMENTS ***/
 }());
