@@ -1,4 +1,13 @@
-(async function bootstrapAwsPowerTools() {
+async function bootstrapAwsPowerTools() {
+
+    // TODO Allow disabling debug logging
+    /*
+    console.debug = function() {
+      if(console.debugging) {
+        console.log.apply(this, arguments);
+      }
+    };
+    */
 
     /*** BEGIN: ROLE SWITCHER ***/
     const consoleRoleList = document.querySelector("#awsc-username-menu-recent-roles");
@@ -31,7 +40,6 @@
 
 
     function updateRoleUi(roles) {
-
         consoleRoleList.innerHTML = '';
 
         // Populate UI with combined roles
@@ -48,6 +56,7 @@
             consoleRoleList.append(combinedRole);
         });
     }
+
     updateRoleUi(combinedRoles);
 
     const storableCombinedRoles = combinedRoles.map(combinedRole => {
@@ -118,4 +127,8 @@
         }
     })();
     /*** END: ROUTE53 ENHANCEMENTS ***/
-}());
+}
+
+setTimeout(() => {
+  bootstrapAwsPowerTools();
+}, 1000);
